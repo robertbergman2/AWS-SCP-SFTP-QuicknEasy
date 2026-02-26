@@ -1,0 +1,24 @@
+aws_region   = "us-east-1"
+environment  = "dev"
+project_name = "sftp-external"
+
+sftp_users = {
+  # Password-only user
+  "alice" = {
+    password       = "change-me-to-a-strong-password"
+    home_directory = null # defaults to username
+  }
+  # SSH key-only user
+  "bob" = {
+    public_keys    = ["ssh-rsa AAAA... bob@example.com"]
+    home_directory = null
+  }
+  # User with both password and SSH key
+  "carol" = {
+    password       = "change-me-to-a-strong-password"
+    public_keys    = ["ssh-rsa AAAA... carol@example.com"]
+    home_directory = "team-uploads"
+  }
+}
+
+log_retention_days = 30

@@ -1,0 +1,35 @@
+terraform {
+  required_version = ">= 1.5.0"
+
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    archive = {
+      source  = "hashicorp/archive"
+      version = "~> 2.0"
+    }
+  }
+
+  # Local backend — migrate to S3 backend when ready
+  # backend "s3" {
+  #   bucket  = "your-terraform-state-bucket"
+  #   key     = "sftp-external/terraform.tfstate"
+  #   region  = "us-east-1"
+  #   profile = "YOUR_AWS_PROFILE"
+  # }
+}
+
+provider "aws" {
+  region  = var.aws_region
+  profile = "YOUR_AWS_PROFILE"
+
+  default_tags {
+    tags = {
+      Project     = var.project_name
+      Environment = var.environment
+      ManagedBy   = "terraform"
+    }
+  }
+}
