@@ -4,6 +4,11 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
+variable "aws_profile" {
+  description = "AWS CLI profile name to use for authentication"
+  type        = string
+}
+
 variable "environment" {
   description = "Environment name (dev, staging, prod)"
   type        = string
