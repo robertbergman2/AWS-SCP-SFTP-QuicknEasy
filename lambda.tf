@@ -15,7 +15,11 @@ resource "aws_lambda_function" "auth" {
 
   environment {
     variables = {
-      SECRET_PREFIX = "${var.project_name}/${var.environment}/sftp-user-"
+      SECRET_PREFIX      = "${var.project_name}/${var.environment}/sftp-user-"
+      KEYCLOAK_URL       = var.keycloak_url
+      KEYCLOAK_REALM     = var.keycloak_realm
+      KEYCLOAK_CLIENT_ID = var.keycloak_client_id
+      KEYCLOAK_SECRET_ID = aws_secretsmanager_secret.keycloak_client_secret.name
     }
   }
 }

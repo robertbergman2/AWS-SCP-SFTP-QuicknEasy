@@ -126,7 +126,10 @@ resource "aws_iam_role_policy" "lambda_secrets" {
       Action = [
         "secretsmanager:GetSecretValue"
       ]
-      Resource = "arn:aws:secretsmanager:${var.aws_region}:${data.aws_caller_identity.current.account_id}:secret:${var.project_name}/${var.environment}/sftp-user-*"
+      Resource = [
+        "arn:aws:secretsmanager:${var.aws_region}:${data.aws_caller_identity.current.account_id}:secret:${var.project_name}/${var.environment}/sftp-user-*",
+        "arn:aws:secretsmanager:${var.aws_region}:${data.aws_caller_identity.current.account_id}:secret:${var.project_name}/${var.environment}/keycloak-client-secret-*"
+      ]
     }]
   })
 }

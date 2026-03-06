@@ -22,11 +22,9 @@ variable "project_name" {
 }
 
 variable "sftp_users" {
-  description = "Map of SFTP users. At least one of password or public_keys must be provided per user."
+  description = "Map of SFTP users to create IAM roles and directory mappings for."
   type = map(object({
-    password       = optional(string)
     home_directory = optional(string)
-    public_keys    = optional(list(string), [])
   }))
   default = {}
 }
@@ -41,4 +39,25 @@ variable "log_retention_days" {
   description = "CloudWatch log retention in days"
   type        = number
   default     = 30
+}
+
+variable "keycloak_url" {
+  description = "Base URL of the Keycloak server (e.g., https://keycloak.example.com)"
+  type        = string
+}
+
+variable "keycloak_realm" {
+  description = "Keycloak realm name"
+  type        = string
+}
+
+variable "keycloak_client_id" {
+  description = "Keycloak client ID for the Transfer Family Lambda"
+  type        = string
+}
+
+variable "keycloak_client_secret" {
+  description = "Keycloak client secret for the Transfer Family Lambda"
+  type        = string
+  sensitive   = true
 }

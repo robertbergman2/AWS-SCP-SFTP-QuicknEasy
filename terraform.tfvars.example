@@ -3,21 +3,19 @@ aws_profile  = "YOUR_AWS_PROFILE"
 environment  = "dev"
 project_name = "sftp-external"
 
+# Keycloak Configuration
+keycloak_url           = "https://keycloak.example.com"
+keycloak_realm         = "my-realm"
+keycloak_client_id     = "aws-transfer-family"
+keycloak_client_secret = "your-keycloak-client-secret"
+
 sftp_users = {
-  # Password-only user
+  # Public keys are now managed in Keycloak. 
+  # We only define the user and their home directory here to create the IAM role.
   "alice" = {
-    password       = "change-me-to-a-strong-password"
     home_directory = null # defaults to username
   }
-  # SSH key-only user
   "bob" = {
-    public_keys    = ["ssh-rsa AAAA... bob@example.com"]
-    home_directory = null
-  }
-  # User with both password and SSH key
-  "carol" = {
-    password       = "change-me-to-a-strong-password"
-    public_keys    = ["ssh-rsa AAAA... carol@example.com"]
     home_directory = "team-uploads"
   }
 }
