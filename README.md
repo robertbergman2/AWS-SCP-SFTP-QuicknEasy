@@ -6,13 +6,12 @@ Authentication uses **SSH public keys only**, managed centrally via **Keycloak**
 ## Architecture
 
 ```mermaid
-User (scp/sftp) --> AWS Transfer Family (public endpoint)
-                        |
-                        +--> S3 Bucket (storage)
-                        +--> Lambda (custom identity provider)
-                               |
-                               +--> Keycloak (validates user and returns SSH public keys)
-                               +--> AWS Secrets Manager (returns IAM role and home dir)
+flowchart TD
+    user["User (scp/sftp)"] --> transfer["AWS Transfer Family (public endpoint)"]
+    transfer --> s3["S3 Bucket (storage)"]
+    transfer --> lambda["Lambda (custom identity provider)"]
+    lambda --> keycloak["Keycloak (validates user and returns SSH public keys)"]
+    lambda --> secrets["AWS Secrets Manager (returns IAM role and home dir)"]
 ```
 
 ## Prerequisites
